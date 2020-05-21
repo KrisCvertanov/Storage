@@ -110,5 +110,14 @@ bool Date::operator<(const Date& other) {
 }
 
 bool Date::operator>(const Date& other) {
+	return !(*this < other || *this == other);
+}
+
+bool Date::operator<=(const Date& other) {
+	return !(*this > other);
+	
+}
+
+bool Date::operator>=(const Date& other) {
 	return !(*this < other);
 }

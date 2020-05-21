@@ -166,21 +166,57 @@ bool String::operator!=(const char* str) const {
 	return !(*this == str);
 }
 
-bool String::operator+=(const String& other) {
-	int len1 = strlen(arr);
-	int len2 = strlen(other.arr);
-	char* tempArr = new char[len1 + 1]; 
-	strcpy(tempArr, arr);
-	delete[] arr;
-	arr = new char[len1 + len2 + 1];
-	for (int i = 0; i < len1; i++) arr[i] = tempArr[i];
-	int br = 0;
-	for (int i = len1; i < len1 + len2; i++) {
-		arr[i] = other.arr[br];
+String& String::operator+=(const String& other) {
+	if (size == 0) {
+		deleteString();
+		int len = strlen(other.arr);
+		arr = new char[len + 1];
+		for (int i = 0; i < len; i++) {
+			arr[i] = other.arr[i];
+		}
+		arr[len] = '\0';
+		size = len;
+		capacity = len + 1;
+	}
+	else {
+		int len1 = strlen(arr);
+		int len2 = strlen(other.arr);
+		char* tempArr = new char[len1 + 1];
+		strcpy(tempArr, arr);
+		delete[] arr;
+		arr = new char[len1 + len2 + 1];
+		for (int i = 0; i < len1; i++) arr[i] = tempArr[i];
+		int br = 0;
+		for (int i = len1; i < len1 + len2; i++) {
+			arr[i] = other.arr[br];
+			br++;
+		}
+		arr[len1 + len2] = '\0';
+		size += other.size;
+		capacity += other.capacity;
+		delete[] tempArr;
+	}
+	return *this;
+}
+
+String& String::to_string(const int num) {
+	int br = 0, tempNum1 = num, tempNum2 = num;
+	while (tempNum1 > 0) {
+		tempNum1 /= 10;
 		br++;
 	}
-	arr[len1 + len2] = '\0';
-	size += other.size;
-	capacity += other.capacity;
-	delete[] tempArr;
+	char* numStr;
+	if (br == 0) numStr = new char[br + 2];
+	else numStr = new char[br + 1];
+	for (int i = 0; i < br; i++) {
+		numStr[br - i - 1] = tempNum2 % 10 + '0';
+		tempNum2 /= 10;
+	}
+	if (br == 0) {
+		numStr[0] = '0';
+		numStr[1] = '\0';
+	}
+	else numStr[br] = '\0';
+	*this = numStr;
+	return *this;
 }

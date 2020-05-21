@@ -1,0 +1,22 @@
+2
+lukanka
+1 lukanka
+2020-04-12
+orehite
+kg
+37
+staa
+Dates of receipt: 2
+2020-03-29 32
+2020-03-30 5
+
+patladjan
+1 patladjan
+2020-05-12
+bai ivan
+kg
+5
+presen
+Dates of receipt: 1
+2020-05-10 5
+

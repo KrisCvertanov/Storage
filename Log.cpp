@@ -34,6 +34,6 @@ std::istream& operator>>(std::istream& in, Log& log) {
 }
 
 std::ostream& operator<<(std::ostream& out, Log& log) {
-	out << log.dateOfLog << ": " << log.message << std::endl;
+	out << log.dateOfLog << "	" << log.message << std::endl;
 	return out;
 }

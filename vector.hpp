@@ -17,7 +17,7 @@ public:
     Vector& operator=(const Vector&);
     ~Vector();
 
-   // friend istream& operator>>(istream&, Vector<T>);
+    //friend std::istream& operator>>(std::istream&, Vector<T>);
 
 
     void add(const T&);
@@ -110,7 +110,8 @@ void Vector<T>::removeAtIndex(int i) {
         std::cout << "Invalid index!" << std::endl;
         return;
     }
-    Vector<T> tempVector(count-1);
+    
+    Vector<T> tempVector(count - 1);
     int br = 0;
     for (int j = 0; j < i; j++) {
         tempVector[br] = arr[j];
@@ -122,6 +123,7 @@ void Vector<T>::removeAtIndex(int i) {
         br++;
         tempVector.addToCount();
     }
+    
     *this = tempVector;
 }
 
@@ -178,7 +180,7 @@ void Vector<T>::addToCount() {
 }
 
 /*template <typename T>
-istream& operator>>(istream&, Vector<T>) {
+std::istream& operator>>(std::istream& in, Vector<T> vector) {
 
 }*/
 

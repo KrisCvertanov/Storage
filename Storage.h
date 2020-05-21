@@ -10,17 +10,17 @@ private:
 	Vector<Log> logs;	// promenite po sklada(logs) se sledyat ot startiraneto na programata do prikliuchvaneto i
 
 	void fillShelves(int, const Product&, Vector<Shelf>&);
-	void addAndFillNewSections(int, const Product&, Vector<Section>&);
+	void addAndFillNewSections(int, const Product&, Vector<Section>&, const Date&);
 	const Date& createCurrDate();
 public:
 	Storage();
 	Storage(const Vector<Section>, const Vector<Log>);
 
 	void print();
-	void add(Vector<Section>);
-	void remove(Vector<Section>);
+	void add(Vector<Section>&);
+	void remove(Vector<Section>&);
 	void log(const char* , const char*);
-	void clean(Vector<Section>);
+	void clean(Vector<Section>&);
 	void open(const char*, Vector<Section>&);
 	void close(Vector<Section>&) const;
 	void save(const char*, Vector<Section>&) const;

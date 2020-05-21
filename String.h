@@ -30,7 +30,8 @@ public:
 	bool operator==(const char*) const;
 	bool operator!=(const String&) const;
 	bool operator!=(const char*) const;
-	bool operator+=(const String&);
+	String& operator+=(const String&);
+	String& to_string(const int);
 	int getCapacity() const;
 	int getSize() const;
 	void clear();

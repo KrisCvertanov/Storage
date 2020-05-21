@@ -56,3 +56,28 @@ void Shelf::print() {
 void Shelf::setProduct(const Product otherProduct) {
 	productOnShelf = otherProduct;
 }
+
+void Shelf::save(std::ofstream& oFile) {
+	productOnShelf.save(oFile);
+	int sizeOfDatesOfReceipt = datesOfReceipt.size();
+	oFile << sizeOfDatesOfReceipt << std::endl;
+	for (int i = 0; i < sizeOfDatesOfReceipt; i++) {
+		oFile << datesOfReceipt[i] << " " << productsForEveryDate[i] << std::endl;
+	}
+}
+
+void Shelf::load(std::ifstream& iFile) {
+	productOnShelf.load(iFile);
+	int sizeOfDatesOfReceipt;
+	iFile >> sizeOfDatesOfReceipt;
+	for (int i = 0; i < sizeOfDatesOfReceipt; i++) {
+		Date tempDate;
+		iFile >> tempDate;
+		datesOfReceipt.add(tempDate);
+		iFile.ignore();
+		int tempNum;
+		iFile >> tempNum;
+		productsForEveryDate.add(tempNum);
+		iFile.ignore();
+	}
+}

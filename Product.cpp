@@ -62,23 +62,24 @@ bool Product::operator==(const Product& other) {
 std::ifstream& operator>>(std::ifstream& iFile, Product& product) {
 	iFile >> product.name;
 	iFile >> product.dateOfExpiry;
-	iFile >> product.dateOfReceipt;
+	iFile.ignore();
 	iFile >> product.manufacturerName;
 	iFile >> product.unit;
-	iFile >> product.amount;
+	iFile >> product.amount; 
+	iFile.ignore();
 	iFile >> product.comment;
+	for (int i = 0; i < 18; i++) iFile.ignore(); // tova e za datite na vnos
 	return iFile;
 }
 
 std::ofstream& operator<<(std::ofstream& oFile, const Product& product) {
 	oFile << product.name << std::endl;
 	oFile << product.dateOfExpiry << std::endl;
-	oFile << product.dateOfReceipt << std::endl;
 	oFile << product.manufacturerName << std::endl;
 	oFile << product.unit << std::endl;
 	oFile << product.amount << std::endl;
 	oFile << product.comment << std::endl;
-	std::cout << std::endl;
+	oFile << "Dates of receipt: "; 
 	return oFile;
 }
 
@@ -127,7 +128,7 @@ std::istream& operator>>(std::istream& in, Product& product) {
 		return in;
 	}
 	product.amount = atoi(validAmount);
-	in.ignore();
+	//in.ignore();
 	std::cout << "short comment: ";
 	in >> product.comment;
 	return in;
@@ -139,8 +140,6 @@ std::ostream& operator<<(std::ostream& out, const Product& product) {
 	out << product.name << std::endl;
 	std::cout << "date of expiry: ";
 	out << product.dateOfExpiry << std::endl;
-	std::cout << "date of receipt: ";
-	out << product.dateOfReceipt << std::endl;
 	std::cout << "name of manufacturer: ";
 	out << product.manufacturerName << std::endl;
 	std::cout << "unit(kg/l): ";

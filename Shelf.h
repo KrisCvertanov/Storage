@@ -19,7 +19,8 @@ public:
 	void add(int, const Date&);
 	void print();
 	const Product& getProductOnShelf() const ;
-	//const bool* getSpots();
+	void save(std::ofstream&);
+	void load(std::ifstream&);
 
 	friend class Storage;
 };

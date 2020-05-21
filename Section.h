@@ -20,6 +20,8 @@ public:
 	void print();
 	const String& getName() const;
 	const Vector<Shelf>& getShelves() const;
+	void save(std::ofstream&);
+	void load(std::ifstream&);
 
 	friend class Storage;
 

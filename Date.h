@@ -20,6 +20,8 @@ public:
 	bool operator==(const Date&);
 	bool operator<(const Date&);
 	bool operator>(const Date&);
+	bool operator<=(const Date&);
+	bool operator>=(const Date&);
 
 
 	friend std::istream& operator>>(std::istream&, Date&);
