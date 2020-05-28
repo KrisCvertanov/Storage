@@ -3,18 +3,14 @@
 
 Section::Section() {}
 
-Section::Section(const String name_, const Vector<Shelf> shelves_) {
+Section::Section(const String& name_, const Vector<Shelf>& shelves_) {
 	name = name_;
 	shelves = shelves_;
 }
 
-Section::Section(const char* name_, const Vector<Shelf> shelves_) {
+Section::Section(const char* name_, const Vector<Shelf>& shelves_) {
 	name = name_;
 	shelves = shelves_;
-}
-
-void Section::add(const Product& newProduct) {
-
 }
 
 const String& Section::getName() const{
@@ -25,7 +21,7 @@ const Vector<Shelf>& Section::getShelves() const {
 	return shelves;
 }
 
-void Section::setName(const String name_) {
+void Section::setName(const String& name_) {
 	name = name_;
 }
 

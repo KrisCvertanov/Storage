@@ -15,31 +15,29 @@ void Storage::print() {
 	}
 	std::cout << "Info about products in storage: " << std::endl;
 	int n = sections.size();
-	std::cout << "n: " << n << std::endl;
+	std::cout << "Amount of sections: " << n << std::endl;
 	for (int i = 0; i < n; i++) sections[i].print();
 }
 
 void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, dobavqm i spravka v logs!!!!
-	Product tempProduct;
+	Product tempProduct; // dobavyaniya product
 	std::cout << "input the product's characteristics: " << std::endl;
 	std::cin >> tempProduct;
 	if (tempProduct.getComment().getSize() == 0) return;
-	Date dateOfAdding;
+	Date dateOfAdding; // data na dobavyane na producta kum sklada
 	dateOfAdding = tempProduct.getDateOfReceipt();
 	int n = tempSections.size();
 	Vector<int> positions;
 	bool flag = false;
 	for (int i = 0; i < n; i++) {
 		if (tempProduct.getName() == tempSections[i].getName() && tempSections[i].getShelves().size() < 50) {
-			positions.add(i);
+			positions.add(i); // zapazva indeksa na sekciyata s ime kato na producta
 			flag = true;
 		}
 	}
 	if (!flag) { // ako ne e nameren producta 
 		int numOfNewSections = tempProduct.getAmount() / 2500 + 1;
-		addAndFillNewSections(numOfNewSections, tempProduct, tempSections, dateOfAdding);
-
-		// dobavil sum v logs!!
+		addAndFillNewSections(numOfNewSections, tempProduct, tempSections, dateOfAdding); 
 	}
 	else { // ako e sreshtnat
 		int n = positions.size(), j = 0;
@@ -60,14 +58,16 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 							tempSections[positions[0]].shelves[j].productsForEveryDate[i] += addedQuantity;
 							isNotMet = false;
 							break;
+							//dobavyame kum vektora, koito sledi kolichestvoto product, vnesen na opredelena data
 						}
 					}
-					if (isNotMet) {
+					if (isNotMet) { // datata na vnos e nova za vektora ot dati
 						tempSections[positions[0]].shelves[j].datesOfReceipt.add(tempProduct.getDateOfReceipt());
 						tempSections[positions[0]].shelves[j].productsForEveryDate.add(addedQuantity);
 					}
-					tempProduct.amount -= addedQuantity;
+					tempProduct.amount -= addedQuantity; // namalyame kolichestvoto na dobavyaniya product
 					String message, op, numOfSection, numOfShelf, sh, nameOfPr, productStr, amount_, addedQStr;
+					// postroyavame suobshtenieto za spravkata za dobavyane
 					op = "operation: add | Section: ";
 					numOfSection.to_string(positions[0]);
 					sh = " | Shelf: ";
@@ -85,15 +85,12 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 					message += amount_;
 					message += addedQStr;
 					Log tempLog(dateOfAdding, message);
-					logs.add(tempLog);
-
-					// dobavil sum v logs!!
+					logs.add(tempLog); // dobavyame kum vektora ot spravki
 				}
 			}
 			if (j == tempSections[positions[0]].getShelves().size() - 1 && tempProduct.getAmount() > 0) {
 				// ako sa svurshili raftovete za proverka, no sa < 50 i producta ne e svurshil(dobavyaniya)
-				// da dobavya v logs!!
-				int amountOfNewShelves = tempProduct.getAmount() / 50 + 1;
+				int amountOfNewShelves = tempProduct.getAmount() / 50 + 1; // kolichestvoto novi raftove, koito shte se dobavyat
 				if (amountOfNewShelves <= 50 - tempSections[positions[0]].getShelves().size()) {
 					// ako dobaveniya product se pobira v ostanaloto myasto v sekciyata
 					
@@ -105,6 +102,7 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 						tempShelf.productsForEveryDate.add(50);
 						tempSections[positions[0]].shelves.add(tempShelf);
 						String message, op, numOfSection, numOfShelf, sh, nameOfPr, productStr, amount_, addedQStr;
+						// postroyavame suobshtenieto za spravkata za dobavyane
 						op = "operation: add | Section: ";
 						numOfSection.to_string(positions[0]);
 						sh = " | Shelf: ";
@@ -133,6 +131,7 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 					tempShelf.productsForEveryDate.add(tempProduct.getAmount());
 					tempSections[positions[0]].shelves.add(tempShelf); 
 					String message, op, numOfSection, numOfShelf, sh, nameOfPr, productStr, amount_, addedQStr;
+					// postroyavame suobshtenieto za spravkata za dobavyane
 					op = "operation: add | Section: ";
 					numOfSection.to_string(positions[0]);
 					sh = " | Shelf: ";
@@ -165,6 +164,7 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 						tempShelf.productsForEveryDate.add(50);
 						tempSections[positions[0]].shelves.add(tempShelf);
 						String message, op, numOfSection, numOfShelf, sh, nameOfPr, productStr, amount_, addedQStr;
+						// postroyavame suobshtenieto za spravkata za dobavyane
 						op = "operation: add | Section: ";
 						numOfSection.to_string(positions[0]);
 						sh = " | Shelf: ";
@@ -191,10 +191,9 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 			}
 			j++;
 		}
-		if (tempProduct.getAmount() > 0) { // ako sa svurshili sekciite v sklada(nujen e!!)
+		if (tempProduct.getAmount() > 0) { // ako sa svurshili sekciite v sklada, no vse oshte ima product za dobavyane
 			int numOfNewSections = tempProduct.getAmount() / 2500 + 1;
 			addAndFillNewSections(numOfNewSections, tempProduct, tempSections, dateOfAdding);
-			// dobavil sum v logs!!
 		}
 	}
 	std::cout << "Product added successfully!" << std::endl;
@@ -202,7 +201,7 @@ void Storage::add(Vector<Section>& tempSections) { // pri dobavqne na product, d
 	//std::cin.ignore();
 }
 
-void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na product, dobavqm i spravka v logs
+void Storage::remove(Vector<Section>& tempSections) { 
 	String nameOfProduct;
 	int amountOfProduct;
 	std::cout << "product: ";
@@ -210,11 +209,11 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 	std::cout << "\namount: ";
 	std::cin >> amountOfProduct;
 	if (amountOfProduct == 0) return;
-	Date dateOfRemoving;
+	Date dateOfRemoving; // datata, na koyto se izvurshva premahvaneto
 	std::cout << "Choose an option for the date that you are removing the products: " << std::endl;
 	std::cout << "1: Enter a date that you want." << std::endl;
 	std::cout << "2: Remove by current date." << std::endl;
-	int option;
+	int option;      // izbira se dali datata za spravka da e tekushtata za kompiutura ili da e vuvedena ot nas
 	std::cout << "Option(1 / 2): ";
 	std::cin >> option;
 	if (option == 1) {
@@ -252,10 +251,11 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 				int numOfShelves = tempSections[i].getShelves().size();
 				for (int j = 0; j < numOfShelves; j++) {
 					std::cout << tempSections[i].getShelves()[j].getProductOnShelf().getDateOfExpiry() << ", ";
+					// izvejdat se srokovete na godnost na nalichnite producti(koito sa sushtite kato premahvaniya)
 				}
 			}
 		}
-		int option;
+		int option; // izbira se opcicya dali da ima promyana po sklada ili ne
 		std::cout << "\n1. I'll still remove the remaining products." << std::endl;
 		std::cout << "2. Exit the command." << std::endl;
 		std::cout << "Option(1 / 2): ";
@@ -268,6 +268,7 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 				}
 			}
 			String message, op, nameOfPr, removed;
+			// postroyavame suobshtenieto za spravkata za izvajdane
 			op = "operation: remove |  product: ";
 			nameOfPr = nameOfProduct;
 			removed = " | all removed from storage.";
@@ -299,7 +300,7 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 			}
 		}
 		int sizeOfExpiryDates = expiryDates.size();
-		for (int i = 0; i < sizeOfExpiryDates; i++) { // metod na mehurcheto(sortirame vektora s dati)
+		for (int i = 0; i < sizeOfExpiryDates; i++) { // sortirame vremenniya vektor sus srokove na godnost
 			for (int j = i + 1; j < sizeOfExpiryDates; j++) {
 				if (expiryDates[i] > expiryDates[j]) {
 					Date tempDate = expiryDates[i];
@@ -319,17 +320,19 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 						if (expiryDates[br] == tempSections[i].getShelves()[j].getProductOnShelf().getDateOfExpiry()) {
 							// znaem che ot tozi raft shte vadim producti
 							if (tempAmountOfRemovedProduct <= tempSections[i].shelves[j].productOnShelf.amount) {
-								// vadenoto e po - malko ot nalichnoto za rafta
+								// vudenoto e po - malko ot nalichnoto za rafta
 								std::cout << "Section: " << tempSections[i].getName();
 								std::cout << " | shelf: " << j << std::endl;
 								std::cout << "Batch: " << tempSections[i].getShelves()[j].getProductOnShelf().getDateOfExpiry() << " ";
 								std::cout << "Removed product: " << tempAmountOfRemovedProduct << " of " << tempSections[i].getShelves()[j].getProductOnShelf().getAmount() << std::endl << std::endl;
 								tempSections[i].shelves[j].productOnShelf.amount -= tempAmountOfRemovedProduct;
+								// premahvame ot ot producta na rafta dadenoto kolichestvo
 								if (tempSections[i].shelves[j].productOnShelf.amount == 0) {
 									tempSections[i].shelves.removeAtIndex(j);
 								}
 								//std::cin.ignore();
 								String message, op, numOfSection, sh, numOfShelf, productStr, nameOfPr, amountStr, amount_;
+								// postroyavame suobshtenieto za spravkata za dobavyane
 								op = "operation: remove | Section: ";
 								numOfSection.to_string(i);
 								sh = " | Shelf: ";
@@ -350,6 +353,7 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 								logs.add(tempLog);
 
 								while (tempAmountOfRemovedProduct > 0) {
+									// opravyame vektorite s dati za vnos i kolichestvo za vsyaka data
 									int count = 0;
 									if (tempSections[i].shelves[j].productsForEveryDate[count] > tempAmountOfRemovedProduct) {
 										tempSections[i].shelves[j].productsForEveryDate[count] -= tempAmountOfRemovedProduct;
@@ -369,11 +373,10 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 								}
 
 								tempAmountOfRemovedProduct = 0;
-								//dobavil sum v logs!!
 								break; // mahaneto e prikliuchilo, spirame algorituma
 							}
 							else {
-								//vadenoto e poveche ot nalichnoto za rafta
+								//vudenoto e poveche ot nalichnoto za rafta
 								std::cout << "Section: " << tempSections[i].getName();
 								std::cout << " | shelf: " << j << std::endl;
 								std::cout << "Batch: " << tempSections[i].getShelves()[j].getProductOnShelf().getDateOfExpiry() << " ";
@@ -381,6 +384,7 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 								tempAmountOfRemovedProduct -= tempSections[i].shelves[j].productOnShelf.amount;
 								//std::cin.ignore();
 								String message, op, numOfSection, sh, numOfShelf, productStr, nameOfPr, amountStr, amount_;
+								// postroyavame suobshtenieto za spravkata za dobavyane
 								op = "operation: remove | Section: ";
 								numOfSection.to_string(i); 
 								sh = " | Shelf: ";
@@ -401,7 +405,6 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 								logs.add(tempLog);
 
 								tempSections[i].shelves.removeAtIndex(j);
-								// dobavil sum v logs!!
 							}
 							br++; // preminavame kum sledvashtata partida
 						}
@@ -418,14 +421,15 @@ void Storage::remove(Vector<Section>& tempSections) { // pri izvajdane na produc
 }
 
 void Storage::log(const char* fromDate_, const char* toDate_) { 
-	std::cout << "References to all changes in storage from " << fromDate_ << " to " << toDate_ << std::endl << std::endl;
+	std::cout << "References to all changes in storage from " << fromDate_ << " to " << toDate_  << ": "<< std::endl << std::endl;
 	int n = logs.size();
 	Date fromDate, toDate;
 	fromDate = fromDate_;
 	toDate = toDate_;
+	if (!(fromDate.isValid()) || !(toDate.isValid())) return;
 	bool empty = true;
 	for (int i = 0; i < n; i++) {
-		if (fromDate <= logs[i].getDate() && toDate >= logs[i].getDate()) {
+		if (fromDate <= logs[i].getDate() && toDate >= logs[i].getDate()) { // ako datata na spravkata e vuv vuvedeniya period
 			std::cout << logs[i];
 			empty = false;
 		}
@@ -434,11 +438,11 @@ void Storage::log(const char* fromDate_, const char* toDate_) {
 	std::cout << std::endl;
 }
 
-void Storage::clean(Vector<Section>& tempSections) { // pri razchistvane, dobavqm i spravka v logs
+void Storage::clean(Vector<Section>& tempSections) { 
 	std::cout << "Choose an option for the date that will be compared with the expiry date: " << std::endl;
 	std::cout << "1: Enter a date that you want." << std::endl;
 	std::cout << "2: Clear by current date." << std::endl;
-	int option;
+	int option; // izbira se opciya za data za spravkata na razchistvane 
 	bool cleanedSomething = false;
 	std::cout << "Option(1 / 2): ";
 	std::cin >> option;
@@ -446,7 +450,7 @@ void Storage::clean(Vector<Section>& tempSections) { // pri razchistvane, dobavq
 		Date inputDate;
 		std::cout << "Enter date: ";
 		std::cin >> inputDate;
-		if (inputDate.getDay()[0] == '0' && inputDate.getDay()[1] == '0') return;
+		if(!(inputDate.isValid())) return; 
 		int n = tempSections.size();
 		for (int i = 0; i < n; i++) { // cikul po vsichki sekcii
 			int numOfShelves = tempSections[i].getShelves().size();
@@ -463,10 +467,10 @@ void Storage::clean(Vector<Section>& tempSections) { // pri razchistvane, dobavq
 			if (tempSections[i].getShelves().size() == 0) tempSections.removeAtIndex(i);
 		}
 		String message;
+		// postroyavame suobshtenieto za spravkata za dobavyane
 		message = "operation: clean | Storage cleaned by specified date.";
 		Log tempLog(inputDate, message);
 		logs.add(tempLog);
-		// dobavil sum v logs!!
 	}
 	else if (option == 2) {
 		Date currDate;
@@ -488,10 +492,10 @@ void Storage::clean(Vector<Section>& tempSections) { // pri razchistvane, dobavq
 			if (tempSections[i].getShelves().size() == 0) tempSections.removeAtIndex(i);
 		}
 		String message;
+		// postroyavame suobshtenieto za spravkata za dobavyane
 		message = "operation: clean | Storage cleaned by specified date.";
 		Log tempLog(currDate, message);
 		logs.add(tempLog);
-		// dobavil sum v logs!!
 	}
 	else {
 		std::cerr << "Incorrect option!" << std::endl;
@@ -509,13 +513,13 @@ void Storage::clean(Vector<Section>& tempSections) { // pri razchistvane, dobavq
 
 void Storage::open(const char* dir, Vector<Section>& tempSections) {	// shte pazq i logovete vuv fail logs.txt
 	std::ifstream iFile(dir, std::ios::in); // otvarya faila za productite
-	if (!iFile) {
+	if (!iFile) {                   // ako failut ne sushtestvuva, suzdavame nov s tova ime
 		std::ofstream oFile(dir);
 		int zero = 0;
 		oFile << zero;
 		oFile.close();
 		iFile.open(dir, std::ios::in);
-		std::cout << "There was no existing file with that name, but it was created a new empty one!" << std::endl;
+		std::cout << "There was no existing file with that name, but there was created a new empty one!" << std::endl;
 		std::cout << std::endl;
 	}
 	iFile.seekg(0, std::ios::end);
@@ -541,7 +545,7 @@ void Storage::open(const char* dir, Vector<Section>& tempSections) {	// shte paz
 	tempSections.clear(); // triya tempSections kato shte cheta nov fail
 	int numOfSections;
 	iFile >> numOfSections;
-	for (int i = 0; i < numOfSections; i++) {
+	for (int i = 0; i < numOfSections; i++) { // chetem ot faila dannite za sklada
 		Section tempSect;
 		tempSect.load(iFile);
 		//iFile.ignore();
@@ -554,7 +558,7 @@ void Storage::open(const char* dir, Vector<Section>& tempSections) {	// shte paz
 }
 
 void Storage::close(Vector<Section>& tempSections) const { 
-	if (tempSections.size() == 0) {
+	if (tempSections.size() == 0) { // ako nyama nishto za iztrivane
 		std::cerr << "File is already closed or the opened file is empty!" << std::endl;
 		return;
 	}
@@ -563,7 +567,7 @@ void Storage::close(Vector<Section>& tempSections) const {
 	std::cout << std::endl;
 }
 
-void Storage::save(const char* dir, Vector<Section>& tempSections) const { // shte pazq i logovete vuv fail logs.txt
+void Storage::save(const char* dir, Vector<Section>& tempSections) const { 
 	int n = tempSections.size();
 	
 	std::ofstream oFile(dir, std::ios::trunc);
@@ -576,8 +580,8 @@ void Storage::save(const char* dir, Vector<Section>& tempSections) const { // sh
 		if (tempSections[i].getShelves().size() == 0) tempSections.removeAtIndex(i);
 	}
 	oFile << n << std::endl;
-	for (int i = 0; i < n; i++) {
-		tempSections[i].save(oFile); // trybva da si go napisha
+	for (int i = 0; i < n; i++) { // zapazva dannite za sklada v tekushto otvoreniya fail
+		tempSections[i].save(oFile); 
 		oFile << std::endl;
 	}
 	oFile.close();
@@ -598,8 +602,9 @@ void Storage::saveas(const char* newDir, Vector<Section>& tempSections) const{ /
 		if (tempSections[i].getShelves().size() == 0) tempSections.removeAtIndex(i);
 	}
 	oFile << n << std::endl;
-	for (int i = 0; i < n; i++) {
-		tempSections[i].save(oFile); // trybva da si go napisha
+	for (int i = 0; i < n; i++) { // zapazva dannite za sklada v noviya fail
+		tempSections[i].save(oFile);
+		oFile << std::endl;
 	}
 	oFile.close();
 	std::cout << "Changes saved successfully in " << newDir << "!" << std::endl;
@@ -622,6 +627,7 @@ void Storage::help() const {
 }
 
 void Storage::fillShelves(int amount_, const Product& tempProduct, Vector<Shelf>& tempShelves) {
+	// suzdava i zapulva amount_ na broi raftove, kato gi dobavya v tempShelves
 	for (int j = 0; j < amount_; j++) {
 		Shelf tempShelf;
 		Product copyOfTempProduct(tempProduct.getName(), tempProduct.getDateOfExpiry(), tempProduct.getDateOfReceipt(), tempProduct.getManufacturerName(), tempProduct.getUnit(), 50, tempProduct.getComment());
@@ -634,6 +640,7 @@ void Storage::fillShelves(int amount_, const Product& tempProduct, Vector<Shelf>
 }
 
 void Storage::addAndFillNewSections(int numOfNewSections, const Product& tempProduct, Vector<Section>& tempSections, const Date& date) {
+	// dobavya i zapulva novi sekcii s dadeniya product, kato gi dobavya v tempSections
 	numOfNewSections = tempProduct.getAmount() / 2500 + 1;
 	for (int i = 0; i < numOfNewSections - 1; i++) { // pulnim celi sekcii (bez poslednata)
 		Vector<Shelf> tempShelves;
@@ -643,6 +650,7 @@ void Storage::addAndFillNewSections(int numOfNewSections, const Product& tempPro
 		Section newSection(nameOfSection, tempShelves);
 		tempSections.add(newSection);
 		String message, op, numOfSection, filled;
+		// postroyavame suobshtenieto za spravkata za dobavyane
 		op = "operation: adding | Section: ";
 		numOfSection.to_string(tempSections.size()); 
 		filled = " | filled with ";
@@ -659,6 +667,7 @@ void Storage::addAndFillNewSections(int numOfNewSections, const Product& tempPro
 	fillShelves(amountForNewSection / 50, tempProduct, tempShelves);
 	if (brOfShelves > 0) {
 		String message, op, numOfSection, brOfShelvesStr, sh;
+		// postroyavame suobshtenieto za spravkata za dobavyane
 		op = "operation: adding | Section: ";
 		numOfSection.to_string(tempSections.size()); 
 		sh = " | number of shelves filled: ";
@@ -682,6 +691,7 @@ void Storage::addAndFillNewSections(int numOfNewSections, const Product& tempPro
 	Section newSection(nameOfSection, tempShelves);
 	tempSections.add(newSection);
 	String message, op, numOfSection, numOfShelf, sh, amount_, amountStr, nameOfPr, productStr;
+	// postroyavame suobshtenieto za spravkata za dobavyane
 	op = "operation: adding | Section: ";
 	numOfSection.to_string(tempSections.size()); 
 	sh = " | Shelf: ";

@@ -10,20 +10,19 @@ private:
 	String name;
 	Vector<Shelf> shelves;
 
-	void setName(const String);
+	void setName(const String&); // mutator za imeto
 public:
 	Section();
-	Section(const String, const Vector<Shelf>);
-	Section(const char*, const Vector<Shelf>);
+	Section(const String&, const Vector<Shelf>&);
+	Section(const char*, const Vector<Shelf>&);
 
-	void add(const Product&);
-	void print();
-	const String& getName() const;
-	const Vector<Shelf>& getShelves() const;
-	void save(std::ofstream&);
-	void load(std::ifstream&);
+	void print();			  // izvejda informaciya za sekciyata
+	const String& getName() const;          // 
+	const Vector<Shelf>& getShelves() const;// funkcii za dostup
+	void save(std::ofstream&); // funkciya za zapazvane na informaciya v izhoden failov potok
+	void load(std::ifstream&); // funkciya za izvlichane na informaciya ot vhoden failov potok
 
-	friend class Storage;
+	friend class Storage; // klas sklad e priyatel za sekciya
 
 };
 

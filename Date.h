@@ -12,23 +12,22 @@ private:
 public:
 	Date();
 	Date(const int, const char*, const char*);
-	Date& operator=(const char*);
+	Date& operator=(const char*); // operator= chrez niz
 
-	const int getYear() const;
-	const char* getMonth() const;
-	const char* getDay() const;
-	bool operator==(const Date&);
-	bool operator<(const Date&);
-	bool operator>(const Date&);
-	bool operator<=(const Date&);
-	bool operator>=(const Date&);
+	const int getYear() const;    //
+	const char* getMonth() const; // funkcii za dostup 
+	const char* getDay() const;   //
+
+	bool operator==(const Date&);//
+	bool operator<(const Date&); // 
+	bool operator>(const Date&); // logicheski operacii 
+	bool operator<=(const Date&);//
+	bool operator>=(const Date&);//
+	bool isValid(); // proverka za validna data
 
 
-	friend std::istream& operator>>(std::istream&, Date&);
-	friend std::ostream& operator<<(std::ostream&, const Date&);
-	/*friend std::ifstream& operator>>(std::ifstream&, Date&);
-	friend std::ofstream& operator<<(std::ofstream&, Date&);*/
-
+	friend std::istream& operator>>(std::istream&, Date&);       // operatori za vhod 
+	friend std::ostream& operator<<(std::ostream&, const Date&); // i izhod
 };
 
 

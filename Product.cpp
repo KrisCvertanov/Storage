@@ -4,7 +4,7 @@ Product::Product() {
 	amount = 0;
 }
 
-Product::Product(const String name_, const Date dateOfExpiry_, const Date dateOfReceipt_, const String manufacturerName_, const String unit_, const int amount_, const String comment_) {
+Product::Product(const String& name_, const Date& dateOfExpiry_, const Date& dateOfReceipt_, const String& manufacturerName_, const String& unit_, const int amount_, const String& comment_) {
 	name = name_;
 	dateOfExpiry = dateOfExpiry_;
 	dateOfReceipt = dateOfReceipt_;
@@ -52,7 +52,8 @@ const String& Product::getComment() const {
 	return comment;
 }
 
-bool Product::operator==(const Product& other) {
+bool Product::operator==(const Product& other) { // sravnyava dali 2 producta sa ednakvi
+	// sravnenieto e po ime, srok na godnost, ime na proizvoditel, merna edinica
 	if (name == other.name && dateOfExpiry == other.dateOfExpiry && manufacturerName == other.manufacturerName && unit == other.unit) {
 		return true;
 	}
@@ -95,10 +96,14 @@ std::istream& operator>>(std::istream& in, Product& product) {
 	}
 	std::cout << "date of expiry: ";
 	in >> product.dateOfExpiry;
-	if (product.dateOfExpiry.getDay()[0] == '0' && product.dateOfExpiry.getDay()[1] == '0') return in;
+	if (!(product.dateOfExpiry.isValid())) return in;
 	std::cout << "date of receipt: ";
 	in >> product.dateOfReceipt;
-	if (product.dateOfReceipt.getDay()[0] == '0' && product.dateOfReceipt.getDay()[1] == '0') return in;
+	if (!(product.dateOfReceipt.isValid())) return in;
+	if (product.dateOfReceipt > product.dateOfExpiry) {
+		std::cout << "Storage does not take in moldy products!" << std::endl;
+		return in;
+	}
 	in.ignore();
 	std::cout << "name of manufacturer: ";
 	in >> product.manufacturerName;

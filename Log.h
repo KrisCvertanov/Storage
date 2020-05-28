@@ -7,20 +7,20 @@ class Storage;
 
 class Log {
 private:
-	Date dateOfLog;
-	String message;
+	Date dateOfLog;       // data na spravka
+	String message;		  // suobshtenie na spravka
 
 public:
 	Log();
 	Log(const Date, const String);
 	Log(const Date, const char*);
-	Log(const char*, const char*);
+	Log(const char*, const char*); 
 
-	const Date& getDate() const;
-	const String& getMessage() const;
+	const Date& getDate() const;      // funkcii za dostup
+	const String& getMessage() const; // 
 
-	friend std::istream& operator>>(std::istream&, Log&);
-	friend std::ostream& operator<<(std::ostream&, Log&);
+	friend std::istream& operator>>(std::istream&, Log&); // operatori za vhod
+	friend std::ostream& operator<<(std::ostream&, Log&); // i izhod
 	friend class Storage;
 };
 

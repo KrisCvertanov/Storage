@@ -2,7 +2,7 @@
 
 Shelf::Shelf() {}
 
-Shelf::Shelf(const Product product_, const Vector<Date> datesOfReceipt_, const Vector<int> productsForEveryDate_) {
+Shelf::Shelf(const Product product_, const Vector<Date>& datesOfReceipt_, const Vector<int>& productsForEveryDate_) {
 	productOnShelf = product_;
 	datesOfReceipt = datesOfReceipt_;
 	productsForEveryDate = productsForEveryDate_;
@@ -13,21 +13,21 @@ const Product& Shelf::getProductOnShelf() const{
 }
 
 void Shelf::add(int amount_, const Date& date_) {
-	if (productOnShelf.amount + amount_ > 50) {
+	if (productOnShelf.amount + amount_ > 50) { 
 		std::cout << "Too much products to add on shelf!" << std::endl;
 		return;
 	}
-	productOnShelf.amount += amount_;
-	int n = datesOfReceipt.size();
+	productOnShelf.amount += amount_; // dobavya se kolichestvoto kum producta na rafta
+	int n = datesOfReceipt.size(); 
 	bool flag = false;
 	for (int i = 0; i < n; i++) {
-		if (datesOfReceipt[i] == date_) {
+		if (datesOfReceipt[i] == date_) { // ako datata za vnos e sreshtana vuv vektora ot dati
 			flag = true;
-			productsForEveryDate[i] += amount_;
+			productsForEveryDate[i] += amount_; // dobavyame kum kolichestovoto, otogvaryashto za suotvetnata data
 			break;
 		}
 	}
-	if (!flag) {
+	if (!flag) { // ako datata na vnos e nova za vektora ot dati
 		datesOfReceipt.add(date_);
 		productsForEveryDate.add(amount_);
 	}
@@ -53,7 +53,7 @@ void Shelf::print() {
 
 }
 
-void Shelf::setProduct(const Product otherProduct) {
+void Shelf::setProduct(const Product& otherProduct) {
 	productOnShelf = otherProduct;
 }
 

@@ -1,6 +1,7 @@
 ﻿#ifndef VECTOR_HPP_
 #define VECTOR_HPP_
 #include<iostream>
+#include<exception>
 
 template <typename T>
 class Vector {
@@ -37,7 +38,11 @@ public:
 
 template <typename T>
 void Vector<T>::copyVectors(const Vector& other) {
-    arr = new T[other.storage];
+    arr = new(std::nothrow) T[other.storage];
+    if (arr == nullptr) {
+        throw ("No memory for vector!(Vector<T>::copyVectors())");
+        return;
+    }
     for (int i = 0; i < other.storage; i++) {
         arr[i] = other.arr[i];
     }
@@ -53,14 +58,20 @@ void Vector<T>::deleteVector() {
 
 template <typename T>
 Vector<T>::Vector() {
-    arr = new T[1];
+    arr = new(std::nothrow) T[1];
+    if (arr == nullptr) {
+        throw ("No memory for vector!(default constructor)");
+    }
     storage = 1;
     count = 0;
 }
 
 template <typename T>
 Vector<T>::Vector(int index) {
-    arr = new T[index + 1];
+    arr = new(std::nothrow) T[index + 1];
+    if (arr == nullptr) {
+        throw ("No memory for vector!(constructor(int)");
+    }
     storage = index + 1;
     count = 0;
 }
@@ -87,7 +98,11 @@ Vector<T>::~Vector() {
 template <typename T>
 void Vector<T>::add(const T& element) {
     if (storage == count) {
-        T* temp = new T[2 * storage];
+        T* temp = new(std::nothrow) T[2 * storage];
+        if (temp == nullptr) {
+            throw ("No memory for vector!(Vector<T>::add())");
+            return;
+        }
         for (int i = 0; i < storage; i++) {
             temp[i] = arr[i];
         }
@@ -162,14 +177,22 @@ T& Vector<T>::operator[](int i) const {
 template <typename T>
 void Vector<T>::clear() {
     delete[] arr;
-    arr = new T[1];
+    arr = new(std::nothrow) T[1];
+    if (arr == nullptr) {
+        throw ("No memory for vector!(Vector<T>::clear())");
+        return;
+    }
     storage = 1;
     count = 0;
 }
 
 template <typename T>
 void Vector<T>::allocateMemory(int index) {
-    arr = new T[index + 1];
+    arr = new(std::nothrow) T[index + 1];
+    if (arr == nullptr) {
+        throw ("No memory for vector!(Vector<T>::allocateMemory())");
+        return;
+    }
     storage = index + 1;
     count = 0;
 }
