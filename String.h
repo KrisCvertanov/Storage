@@ -32,7 +32,7 @@ public:
 	bool operator!=(const String&) const;   //
 	bool operator!=(const char*) const;     //
 	String& operator+=(const String&); // operator za konkatenaciya
-	String& to_string(const int); // konvertira cyalo chislo v niz
+	String& to_string(const int); // konvertira cyalo neotricatelno chislo v niz
 	int getCapacity() const;  // 
 	int getSize() const;      // funkcii za dostup
 	void clear(); // izchistva stringa

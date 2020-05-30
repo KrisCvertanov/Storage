@@ -27,7 +27,7 @@ public:
 	const String& getUnit() const;			  //
 	const int getAmount() const;			  //
 	const String& getComment() const;		  //
-	bool operator==(const Product&);
+	bool operator==(const Product&) const;
 	friend std::ifstream& operator>>(std::ifstream&, Product&);      //
 	friend std::ofstream& operator<<(std::ofstream&, const Product&);// operator za vhod i izhod
 	friend std::istream& operator>>(std::istream&, Product&);		 //

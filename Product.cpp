@@ -52,7 +52,7 @@ const String& Product::getComment() const {
 	return comment;
 }
 
-bool Product::operator==(const Product& other) { // sravnyava dali 2 producta sa ednakvi
+bool Product::operator==(const Product& other) const { // sravnyava dali 2 producta sa ednakvi
 	// sravnenieto e po ime, srok na godnost, ime na proizvoditel, merna edinica
 	if (name == other.name && dateOfExpiry == other.dateOfExpiry && manufacturerName == other.manufacturerName && unit == other.unit) {
 		return true;

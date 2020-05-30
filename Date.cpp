@@ -48,14 +48,14 @@ const char* Date::getDay() const {
 	return day;
 }
 
-bool Date::operator==(const Date& other) { // proverka dali 2 dati sa ednakvi
+bool Date::operator==(const Date& other) const { // proverka dali 2 dati sa ednakvi
 	if (year == other.year && month[0] == other.month[0] && month[1] == other.month[1] && day[0] == other.day[0] && day[1] == other.day[1]) {
 		return true;
 	}
 	return false;
 }
 
-bool Date::isValid() { // proverka dali data e validna
+bool Date::isValid() const { // proverka dali data e validna
 	if (day[0] < '0' || day[0] > '3') return false; // proverka dali denyat i mesecut sa validni
 	if (day[1] < '0' || day[1] > '9') return false;
 	if (month[0] < '0' || month[0] > '1') return false;
@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& out, const Date& date) {
 	return out;
 }
 
-bool Date::operator<(const Date& other) { // proverka dali data e po - stara ot druga
+bool Date::operator<(const Date& other) const { // proverka dali data e po - stara ot druga
 	if (year < other.year) return true;
 	else if (year == other.year) {
 		if (month[0] < other.month[0]) return true;
@@ -121,15 +121,15 @@ bool Date::operator<(const Date& other) { // proverka dali data e po - stara ot 
 	else return false;
 }
 
-bool Date::operator>(const Date& other) {
+bool Date::operator>(const Date& other) const {
 	return !(*this < other || *this == other);
 }
 
-bool Date::operator<=(const Date& other) {
+bool Date::operator<=(const Date& other) const {
 	return !(*this > other);
 	
 }
 
-bool Date::operator>=(const Date& other) {
+bool Date::operator>=(const Date& other) const {
 	return !(*this < other);
 }

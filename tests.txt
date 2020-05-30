@@ -1,0 +1,234 @@
+Тестовете са направени в реда - 1, 2, 3.
+					
+						Тест1:
+Welcome to my storage! Please enter a command. If you want to check list with all commands, type 'help'.
+> help
+The following commands are supported:
+open <file>           opens <file>
+close                 closes currently opened file
+save <file>           saves updates in currently opened file
+saveas                saves updates in <file>
+exit                  exits the program
+print                 prints info about the available products in storage
+add                   adds a new product to storage
+remove                removes a product from storage
+log <from> <to>       outputs a reference to all updates in the period <from> - <to> (dates)
+clean                 cleans up the storage from all expired products
+
+> open products.txt
+There was no existing file with that name, but there was created a new empty one!
+
+File opened successfully!
+
+> add
+input the product's characteristics:
+name: lukanka
+date of expiry: 2020-07-12
+date of receipt: 2020-05-30
+name of manufacturer: orehite
+unit(kg/l): kg
+amount: 60
+short comment: stava za filii
+Product added successfully!
+
+> save
+Changes saved successfully!
+
+> open products.txt
+File opened successfully!
+
+> print
+Info about products in storage:
+Amount of sections: 1
+Section name: lukanka
+Number of shelf: 0
+product: lukanka
+date of expiry: 2020-07-12
+dates of receipt: 2020-05-30
+manufacturer: orehite
+unit: kg
+amount: 50
+comment: stava za filii
+Number of shelf: 1
+product: lukanka
+date of expiry: 2020-07-12
+dates of receipt: 2020-05-30
+manufacturer: orehite
+unit: kg
+amount: 10
+comment: stava za filii
+
+> saveas products2.txt
+Changes saved successfully in products2.txt!
+
+> exit
+Exiting program...
+
+
+
+						Тест2:
+ Welcome to my storage! Please enter a command. If you want to check list with all commands, type 'help'.
+> open products2.txt
+File opened successfully!
+
+> print
+Info about products in storage:
+Amount of sections: 1
+Section name: lukanka
+Number of shelf: 0
+product: lukanka
+date of expiry: 2020-07-12
+dates of receipt: 2020-05-30
+manufacturer: orehite
+unit: kg
+amount: 50
+comment: stava za filii
+Number of shelf: 1
+product: lukanka
+date of expiry: 2020-07-12
+dates of receipt: 2020-05-30
+manufacturer: orehite
+unit: kg
+amount: 10
+comment: stava za filii
+
+> add
+input the product's characteristics:
+name: lukanka
+date of expiry: 2020-07-12
+date of receipt: 2020-06-01
+name of manufacturer: orehite
+unit(kg/l): kg
+amount: 15
+short comment: stava za filii
+Product added successfully!
+
+> add
+input the product's characteristics:
+name: liutenica
+date of expiry: 2020-08-11
+date of receipt: 2020-06-03
+name of manufacturer: olineza
+unit(kg/l): kg
+amount: 35
+short comment: vurvi s lukanka
+Product added successfully!
+
+> clean
+Choose an option for the date that will be compared with the expiry date:
+1: Enter a date that you want.
+2: Clear by current date.
+Option(1 / 2): 1
+Enter date: 2020-07-15
+Storage cleared successfully!
+
+> save
+Changes saved successfully!
+
+> open products2.txt
+File opened successfully!
+
+> print
+Info about products in storage:
+Amount of sections: 1
+Section name: liutenica
+Number of shelf: 0
+product: liutenica
+date of expiry: 2020-08-11
+dates of receipt: 2020-06-03
+manufacturer: olineza
+unit: kg
+amount: 35
+comment: vurvi s lukanka
+
+> log 2020-04-01 2020-12-04
+References to all changes in storage from 2020-04-01 to 2020-12-04:
+
+2020-06-01      operation: add | Section: 0 | Shelf: 1 | product: lukanka | amount: 15
+2020-06-03      operation: adding | Section: 2 | Shelf: 1 | product: liutenica | amount: 35
+2020-07-15      operation: clean | Storage cleaned by specified date.
+
+> exit
+Exiting program...
+
+
+
+						Тест3:
+Welcome to my storage! Please enter a command. If you want to check list with all commands, type 'help'.
+> open products2.txt
+File opened successfully!
+
+> print
+Info about products in storage:
+Amount of sections: 1
+Section name: liutenica
+Number of shelf: 0
+product: liutenica
+date of expiry: 2020-08-11
+dates of receipt: 2020-06-03
+manufacturer: olineza
+unit: kg
+amount: 35
+comment: vurvi s lukanka
+
+> remove
+product: liutenica
+
+amount: 12
+Choose an option for the date that you are removing the products:
+1: Enter a date that you want.
+2: Remove by current date.
+Option(1 / 2): 2
+Section: liutenica | shelf: 0
+Batch: 2020-08-11 Removed product: 12 of 35
+
+> add
+input the product's characteristics:
+name: liutenica
+date of expiry: 2020-08-11
+date of receipt: 2020-06-05
+name of manufacturer: olineza
+unit(kg/l): kg
+amount: 20
+short comment: vurvi s lukanka
+Product added successfully!
+
+> save
+Changes saved successfully!
+
+> open products2.txt
+File opened successfully!
+
+> pritn
+That command does not exist! Please enter a valid one.
+> print
+Info about products in storage:
+Amount of sections: 1
+Section name: liutenica
+Number of shelf: 0
+product: liutenica
+date of expiry: 2020-08-11
+dates of receipt: 2020-06-03 | 2020-06-05
+manufacturer: olineza
+unit: kg
+amount: 43
+comment: vurvi s lukanka
+
+> clean
+Choose an option for the date that will be compared with the expiry date:
+1: Enter a date that you want.
+2: Clear by current date.
+Option(1 / 2): 2
+All products are in date. There was nothing to be cleaned.
+
+> log
+That command does not exist! Please enter a valid one.
+> log 2020-05-30 2020-09-12
+References to all changes in storage from 2020-05-30 to 2020-09-12:
+
+2020-05-30      operation: remove | Section: 0 | Shelf: 0 | product: liutenica | amount: 12
+2020-06-05      operation: add | Section: 0 | Shelf: 0 | product: liutenica | amount: 20
+2020-05-30      operation: clean | Storage cleaned by specified date.
+
+> exit
+Exiting program...

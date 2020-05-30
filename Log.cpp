@@ -2,12 +2,12 @@
 
 Log::Log() {}
 
-Log::Log(const Date date_, const String message_) {
+Log::Log(const Date& date_, const String& message_) {
 	dateOfLog = date_;
 	message = message_;
 }
 
-Log::Log(const Date date_, const char* message_) {
+Log::Log(const Date& date_, const char* message_) {
 	dateOfLog = date_;
 	message = message_;
 }

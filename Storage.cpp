@@ -2,12 +2,12 @@
 
 Storage::Storage() {}
 
-Storage::Storage(const Vector<Section> sections_, const Vector<Log> logs_) {
+Storage::Storage(const Vector<Section>& sections_, const Vector<Log>& logs_) {
 	sections = sections_;
 	logs = logs_;
 }
 
-void Storage::print() {
+void Storage::print() const {
 	if (sections.size() == 0) {
 		std::wcout << "Storage is empty!" << std::endl;
 		std::cout << std::endl;
@@ -420,7 +420,7 @@ void Storage::remove(Vector<Section>& tempSections) {
 	}
 }
 
-void Storage::log(const char* fromDate_, const char* toDate_) { 
+void Storage::log(const char* fromDate_, const char* toDate_) const { 
 	std::cout << "References to all changes in storage from " << fromDate_ << " to " << toDate_  << ": "<< std::endl << std::endl;
 	int n = logs.size();
 	Date fromDate, toDate;
@@ -712,7 +712,7 @@ void Storage::addAndFillNewSections(int numOfNewSections, const Product& tempPro
 	logs.add(tempLog);
 }
 
-const Date& Storage::createCurrDate() {
+const Date& Storage::createCurrDate() const{
 	time_t t = time(NULL);
 	tm* timePtr = localtime(&t);
 	int year = 1900 + timePtr->tm_year;

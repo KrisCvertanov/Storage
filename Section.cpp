@@ -25,7 +25,7 @@ void Section::setName(const String& name_) {
 	name = name_;
 }
 
-void Section::print() {
+void Section::print() const {
 	std::cout << "Section name: " << name << std::endl;
 	int n = shelves.size();
 	for (int i = 0; i < n; i++) {

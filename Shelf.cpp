@@ -2,7 +2,7 @@
 
 Shelf::Shelf() {}
 
-Shelf::Shelf(const Product product_, const Vector<Date>& datesOfReceipt_, const Vector<int>& productsForEveryDate_) {
+Shelf::Shelf(const Product& product_, const Vector<Date>& datesOfReceipt_, const Vector<int>& productsForEveryDate_) {
 	productOnShelf = product_;
 	datesOfReceipt = datesOfReceipt_;
 	productsForEveryDate = productsForEveryDate_;
@@ -34,7 +34,7 @@ void Shelf::add(int amount_, const Date& date_) {
 	
 }
 
-void Shelf::print() {
+void Shelf::print() const {
 	std::cout << "product: " << productOnShelf.getName() << std::endl;
 	std::cout << "date of expiry: " << productOnShelf.getDateOfExpiry() << std::endl;
 	std::cout << "dates of receipt: ";

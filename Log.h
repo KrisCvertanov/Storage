@@ -12,8 +12,8 @@ private:
 
 public:
 	Log();
-	Log(const Date, const String);
-	Log(const Date, const char*);
+	Log(const Date&, const String&);
+	Log(const Date&, const char*);
 	Log(const char*, const char*); 
 
 	const Date& getDate() const;      // funkcii za dostup

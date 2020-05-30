@@ -18,12 +18,12 @@ public:
 	const char* getMonth() const; // funkcii za dostup 
 	const char* getDay() const;   //
 
-	bool operator==(const Date&);//
-	bool operator<(const Date&); // 
-	bool operator>(const Date&); // logicheski operacii 
-	bool operator<=(const Date&);//
-	bool operator>=(const Date&);//
-	bool isValid(); // proverka za validna data
+	bool operator==(const Date&) const;//
+	bool operator<(const Date&) const; // 
+	bool operator>(const Date&) const; // logicheski operacii 
+	bool operator<=(const Date&) const;//
+	bool operator>=(const Date&) const;//
+	bool isValid() const; // proverka za validna data
 
 
 	friend std::istream& operator>>(std::istream&, Date&);       // operatori za vhod 

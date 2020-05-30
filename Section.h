@@ -16,7 +16,7 @@ public:
 	Section(const String&, const Vector<Shelf>&);
 	Section(const char*, const Vector<Shelf>&);
 
-	void print();			  // izvejda informaciya za sekciyata
+	void print() const;			  // izvejda informaciya za sekciyata
 	const String& getName() const;          // 
 	const Vector<Shelf>& getShelves() const;// funkcii za dostup
 	void save(std::ofstream&); // funkciya za zapazvane na informaciya v izhoden failov potok

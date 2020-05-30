@@ -11,6 +11,7 @@ private:
     int count;
 
     void copyVectors(const Vector&);
+    void addToCount();
 public:
     Vector();
     Vector(int);
@@ -18,19 +19,15 @@ public:
     Vector& operator=(const Vector&);
     ~Vector();
 
-    //friend std::istream& operator>>(std::istream&, Vector<T>);
-
-
-    void add(const T&);
-    int getStorage() const;
-    int size() const;
-    void print() const;
-    void pushAtIndex(const T&, int);
-    void removeAtIndex(int);
-    void clear();
-    void deleteVector();
-    void allocateMemory(int);
-    void addToCount();
+    void add(const T&);             // dobavya nai - otzad element kum vektora(push_back())
+    int getStorage() const;         //
+    int size() const;               // funkcii za dostup
+    void print() const;             // izvejda elementite na vektora
+    void pushAtIndex(const T&, int);        // na posochen index zamenya predishana st-st s novopodadena
+    void removeAtIndex(int);        // premahva element na daden index (namalyava goleminata s 1)
+    void clear();                   // izchistva zadelenata pamet
+    void deleteVector();            // iztriva masiva
+    void allocateMemory(int);       // zadelya posocheno kolichestvo pamet za vektora
 
     bool operator==(const Vector<T>&) const;
     T& operator[](int) const;
